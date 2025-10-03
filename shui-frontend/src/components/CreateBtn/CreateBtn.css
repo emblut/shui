@@ -1,0 +1,25 @@
+.create-btn {
+  background-color: var(--brown);
+  width: 60px;
+  padding: 9px;
+  border: none;
+  border-radius: 7px;
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: opacity 0.1s ease-in, transform 0.1s ease-in;
+}
+
+.create-btn:hover {
+  opacity: 0.95;
+}
+
+.create-btn:active {
+  transform: scale(0.95);
+}
+
+.create-btn__icon {
+  width: 100%;
+}

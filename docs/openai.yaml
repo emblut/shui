@@ -1,0 +1,206 @@
+openapi: 3.0.3
+info:
+  title: SHUI
+  description: API for creating, retrieving, and updating messages stored in DynamoDB
+  version: 1.0.0
+servers:
+  - url: https://9yne1dfcyc.execute-api.eu-north-1.amazonaws.com
+paths:
+  /messages:
+    get:
+      summary: Retrieve messages
+      description: Retrieve all messages or filter by username and sort order
+      parameters:
+        - in: query
+          name: username
+          schema:
+            type: string
+          description: Optional username to filter messages
+        - in: query
+          name: sortOrder
+          schema:
+            type: string
+            enum: [newestFirst, oldestFirst]
+          required: true
+          description: Sort order for messages
+      responses:
+        '200':
+          description: Successfully retrieved messages
+          content:
+            application/json:
+              example:
+                success: true
+                data:
+                  - pk: 'MESSAGE'
+                    sk: '2025-10-02T12:30:00'
+                    id: '123e4567-e89b-12d3-a456-426614174000'
+                    username: 'emblut'
+                    text: 'HELLO WORLD!'
+                    createdAt: '2025-10-02 14:30'
+                    modifiedBy: 'zelda'
+                    modifiedAt: '2025-10-02 15:00'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              example:
+                success: false
+                message: 'Sort-order must be provided'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              example:
+                success: false
+                message: 'Internal server error'
+
+    post:
+      summary: Create a new message
+      description: Add a new message to DynamoDB
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - text
+                - color
+              properties:
+                username:
+                  type: string
+                  description: Username of the person who wrote the message
+                text:
+                  type: string
+                  description: The message
+                color:
+                  type: string
+                  description: Color of the message
+            example:
+              username: 'emblut'
+              text: 'Hello world!'
+              color: 'blue'
+      responses:
+        '201':
+          description: Message created successfully
+          content:
+            application/json:
+              example:
+                success: true
+                data:
+                  pk: 'MESSAGE'
+                  sk: '2025-10-02T12:30:00'
+                  id: '123e4567-e89b-12d3-a456-426614174000'
+                  username: 'emblut'
+                  text: 'Hello world!'
+                  createdAt: '2025-10-02 14:30'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              example:
+                success: false
+                message: 'Username is required'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              example:
+                success: false
+                message: 'Internal server error'
+
+    put:
+      summary: Update an existing message
+      description: Update a message by providing its id, username, and new text
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              id: '123e4567-e89b-12d3-a456-426614174000'
+              username: 'zelda'
+              text: 'HELLO WORLD!'
+      responses:
+        '200':
+          description: Message updated successfully
+          content:
+            application/json:
+              example:
+                success: true
+                data:
+                  pk: 'MESSAGE'
+                  sk: '2025-10-02T12:30:00'
+                  id: '123e4567-e89b-12d3-a456-426614174000'
+                  username: 'emblut'
+                  text: 'HELLO WORLD!'
+                  createdAt: '2025-10-02 14:30'
+                  modifiedBy: 'zelda'
+                  modifiedAt: '2025-10-02 16:00'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              example:
+                success: false
+                message: 'Text must be at least 1 characters'
+        '404':
+          description: Message not found
+          content:
+            application/json:
+              example:
+                success: false
+                message: 'Message not found'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              example:
+                success: false
+                message: 'Internal server error'
+
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        pk:
+          type: string
+          description: Partition key in DynamoDB
+        sk:
+          type: string
+          description: Sort key in DynamoDB (timestamp)
+        id:
+          type: string
+          description: Unique identifier of the message
+        username:
+          type: string
+          description: Author of the message
+        text:
+          type: string
+          description: Content of the message
+        color:
+          type: string
+          description: Generated color for the message
+        createdAt:
+          type: string
+          description: Creation timestamp formatted as "YYYY-MM-DD HH:mm" in Swedish time
+          example: '2025-10-02 14:30'
+        modifiedBy:
+          type: string
+          description: User who last modified the message
+          example: 'emblut'
+        modifiedAt:
+          type: string
+          description: Last modification timestamp formatted as "YYYY-MM-DD HH:mm" in Swedish time
+          example: '2025-10-02 16:00'
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: 'Error message describing the problem'

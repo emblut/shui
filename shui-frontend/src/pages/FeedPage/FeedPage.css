@@ -1,0 +1,94 @@
+.feed-page {
+  padding: 5rem 0rem 1rem 0rem;
+  max-width: 700px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.feed-page__top-container {
+  padding: 0 1rem;
+}
+
+.feed-page__search-bar {
+  margin: 0 0 2rem 0;
+}
+
+.feed-page__heading {
+  color: var(--black);
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.feed-page--flex-center {
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.feed-page__dropdown-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.feed-page__dropdown-label {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brown);
+}
+
+.feed-page__dropdown {
+  background-color: transparent;
+  border: none;
+  width: fit-content;
+  color: var(--brown);
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.feed-page__dropdown-opt {
+  color: var(--brown);
+}
+
+.feed-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.feed-section__loading-messages {
+  margin: 0 auto;
+  margin: 6rem auto 0 auto;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brown);
+}
+
+.feed-page__no-messages {
+  margin: 0 auto;
+  margin: 6rem auto 0 auto;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--brown);
+  z-index: 10;
+}
+
+.feed-page__waves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 0;
+  max-height: 40vh;
+}
+
+@media (min-width: 740px) {
+  .feed-page__top-container {
+    padding: 0 0rem;
+  }
+}

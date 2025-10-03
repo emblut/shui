@@ -1,0 +1,12 @@
+.app-layout {
+  position: relative;
+}
+
+.loading-messages {
+  color: var(--light);
+  font-size: 1rem;
+}
+
+main {
+  background-color: var(--white);
+}

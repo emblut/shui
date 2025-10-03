@@ -1,0 +1,16 @@
+:root {
+  --brown: #372f2f;
+  --light-brown: #7d7070;
+  --black: #34292d;
+  --white: #fffefd;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'PT Sans', sans-serif;
+}
