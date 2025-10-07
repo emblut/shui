@@ -6,7 +6,7 @@ import {
   errorResponse,
 } from '../../utils/responseHandler.mjs';
 import { MESSAGES_TABLE, MESSAGE_PK } from '../../utils/constants.mjs';
-import { validateCreation } from '../../utils/validation/validateMessage.mjs';
+import { validateCreation } from '../../utils/validation/validateCreation.mjs';
 import { getSwedishTime } from '../../utils/getSwedishTime.mjs';
 
 export const handler = async (event) => {
